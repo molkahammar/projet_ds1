@@ -3,11 +3,12 @@ name: Django CI/CD Pipeline
 on:
   push:
     branches:
-      - master
+      - master  # ou "master" selon ta configuration de branche
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pytest pytest-django
 
       - name: Run tests
         run: |
-          python manage.py test
+          cd projet_ds1  # Assurez-vous de naviguer dans le répertoire correct
+          python manage.py test  # Lance les tests dans le répertoire où manage.py est situé
