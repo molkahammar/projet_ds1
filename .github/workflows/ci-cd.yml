@@ -3,7 +3,7 @@ name: Django CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Branche principale
+      - master  # Branche principale
   pull_request:
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
         run: |
           pip install --upgrade pip  # Met à jour pip
           pip install -r requirements.txt
-        working-directory: projet_ds1  # Changez ce chemin si nécessaire
+        working-directory: C:\Users\molka\projet  # Changez ce chemin si nécessaire
 
       # Étape 5 : Exécuter les tests
       - name: Run tests
