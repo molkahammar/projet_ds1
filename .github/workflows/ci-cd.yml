@@ -3,7 +3,7 @@ name: Django CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Branche sur laquelle le pipeline s'exécute
+      - master # Branche sur laquelle le pipeline s'exécute (modifié de 'master' à 'main')
 
 jobs:
   test:
@@ -20,27 +20,19 @@ jobs:
         with:
           python-version: '3.10'
 
-<<<<<<< HEAD
-      # Étape 3 : Debug - Lister les fichiers dans le répertoire
+      # Étape 3 : Debug - Lister les fichiers dans le répertoire pour vérifier que requirements.txt existe
       - name: Debug files
         run: |
-          ls -R  # Lister tous les fichiers et dossiers pour vérifier la présence de requirements.txt
+          ls -R  # Lister tous les fichiers et dossiers
 
       # Étape 4 : Installation des dépendances
-=======
-      # Étape 3 : Installation des dépendances
->>>>>>> 382db27d33d1a19a0f6a56b2864beaaed8365d3e
       - name: Install dependencies
         run: |
-          cd projet_ds1  # Naviguer dans le dossier contenant requirements.txt
+          cd projet_ds1  # Si votre projet est dans ce dossier, sinon ajustez ce chemin
           pip install -r requirements.txt
 
-<<<<<<< HEAD
       # Étape 5 : Exécuter les tests
-=======
-      # Étape 4 : Exécuter les tests
->>>>>>> 382db27d33d1a19a0f6a56b2864beaaed8365d3e
       - name: Run tests
         run: |
-          cd projet_ds1  # Naviguer dans le dossier contenant manage.py
+          cd projet_ds1  # Assurez-vous que manage.py se trouve dans ce dossier
           python manage.py test
