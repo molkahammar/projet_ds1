@@ -3,7 +3,7 @@ name: Django CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Branche principale
+      - master
   pull_request:
 
 jobs:
@@ -24,11 +24,35 @@ jobs:
       # Étape 3 : Installer les dépendances
       - name: Install dependencies
         run: |
-          cd myprojectds1  # Naviguer dans le dossier principal de votre projet
+          cd myprojectds1
           pip install -r requirements.txt
 
       # Étape 4 : Exécuter les tests
       - name: Run tests
         run: |
-          cd myprojectds1  # Naviguer dans le dossier principal
+          cd myprojectds1
           python manage.py test
+
+  deploy:
+    needs: test  # Assurez-vous que les tests réussissent avant le déploiement
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Étape 1 : Installer Heroku CLI
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      # Étape 2 : Authentifier avec Heroku
+      - name: Login to Heroku
+        run: |
+          echo "HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
+
+      # Étape 3 : Déployer sur Heroku
+      - name: Deploy to Heroku
+        run: |
+          cd myprojectds1
+          git remote add heroku https://git.heroku.com/your-heroku-app-name.git  # Remplacez par le nom de votre application Heroku
+          git push heroku master
