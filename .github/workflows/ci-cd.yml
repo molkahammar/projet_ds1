@@ -3,26 +3,36 @@ name: Django CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # ou "master" selon ta configuration de branche
+      - master  # Branche sur laquelle le pipeline s'exécute
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
+      # Étape 1 : Récupérer le code du dépôt
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Étape 2 : Configurer Python
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
           python-version: '3.10'
 
+      # Étape 3 : Debug - Lister les fichiers dans le répertoire
+      - name: Debug files
+        run: |
+          ls -R  # Lister tous les fichiers et dossiers pour vérifier la présence de requirements.txt
+
+      # Étape 4 : Installation des dépendances
       - name: Install dependencies
         run: |
+          cd projet_ds1  # Naviguer dans le dossier contenant requirements.txt
           pip install -r requirements.txt
 
+      # Étape 5 : Exécuter les tests
       - name: Run tests
         run: |
-          cd projet_ds1  # Assurez-vous de naviguer dans le répertoire correct
-          python manage.py test  # Lance les tests dans le répertoire où manage.py est situé
+          cd projet_ds1  # Naviguer dans le dossier contenant manage.py
+          python manage.py test
