@@ -54,9 +54,12 @@ jobs:
         env:
               HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
               HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      # Étape 3 : Déployer sur Heroku
-      - name: Deploy to Heroku
+    # Étape 3 : Déployer sur Heroku
+    - name: Deploy to Heroku
         run: |
-          cd myprojectds1
-          git remote add heroku https://git.heroku.com/your-heroku-app-name.git  # Remplacez par le nom de votre application Heroku
-          git push heroku master
+            cd myprojectds1  # Naviguer dans le répertoire de votre projet
+            git remote add heroku https://git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git  # Utilisation du secret HEROKU_APP_NAME
+            git push heroku master  # Déployer sur la branche master de Heroku
+        env:
+            HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}  # Nom de votre application Heroku stocké comme secret
+
