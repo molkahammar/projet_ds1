@@ -21,19 +21,14 @@ jobs:
         with:
           python-version: '3.10'
 
-      # Étape 3 : Debug - Vérifier les fichiers présents
-      - name: List project files
-        run: ls -R
-
-      # Étape 4 : Installation des dépendances
+      # Étape 3 : Installer les dépendances
       - name: Install dependencies
         run: |
-          pip install --upgrade pip  # Met à jour pip
+          cd myprojectds1  # Naviguer dans le dossier principal de votre projet
           pip install -r requirements.txt
-        working-directory: C:\Users\molka\projet  # Changez ce chemin si nécessaire
 
-      # Étape 5 : Exécuter les tests
+      # Étape 4 : Exécuter les tests
       - name: Run tests
         run: |
+          cd myprojectds1  # Naviguer dans le dossier principal
           python manage.py test
-        working-directory: projet_ds1  # Changez ce chemin si nécessaire
