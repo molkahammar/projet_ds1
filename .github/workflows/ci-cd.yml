@@ -40,23 +40,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Étape 1 : Installer Heroku CLI
-      - name: Install Heroku CLI
+      # Étape 1 : Déployer sur Render
+      - name: Deploy to Render
         run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
+          curl -sSL https://render.com/deploy/github --data-urlencode "repo=${{ github.repository }}" --data-urlencode "branch=master" --data-urlencode "access_token=${{ secrets.RENDER_ACCESS_TOKEN }}"
 
-      # Étape 2 : Authentifier avec Heroku
-      - name: Login to Heroku
-        run: |
-              echo "machine api.heroku.com" >> ~/.netrc
-              echo "  login ${{ secrets.HEROKU_EMAIL }}" >> ~/.netrc
-              echo "  password ${{ secrets.HEROKU_API_KEY }}" >> ~/.netrc
-        env:
-              HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
-              HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      # Étape 3 : Déployer sur Heroku
-      - name: Deploy to Heroku
-        run: |
-          cd myprojectds1
-          git remote add heroku https://git.heroku.com/HEROKU_APP_NAME.git  # Remplacez par le nom de votre application Heroku
-          git push heroku master
